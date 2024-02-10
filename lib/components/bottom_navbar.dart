@@ -61,6 +61,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
       ),
     );
   }
