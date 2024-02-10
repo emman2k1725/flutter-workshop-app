@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop_app/components/components.dart';
-import 'package:flutter_workshop_app/styles/textstyles.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -21,9 +20,13 @@ class SearchPage extends StatelessWidget {
             backgroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 28),
-                  child: SearchField(controller: textEditingController)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 28),
+                child: CustomTextField(
+                  controller: textEditingController,
+                  type: CustomTextFieldType.search,
+                ),
+              ),
             ),
           ),
           SliverList(

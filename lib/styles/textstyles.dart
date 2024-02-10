@@ -10,6 +10,13 @@ class TextStyles {
     color: Colors.black,
   );
 
+  static const TextStyle displayTextMedium = TextStyle(
+    fontSize: 20,
+    letterSpacing: 0.7,
+    fontWeight: FontWeight.w700,
+    color: Colors.black,
+  );
+
   static const TextStyle titleText = TextStyle(
     fontSize: 14,
     letterSpacing: 0.7,

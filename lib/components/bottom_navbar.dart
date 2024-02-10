@@ -16,7 +16,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   List<Widget> screens = const [
     HomePage(),
     SearchPage(),
-    CreatePostPage(),
+    SizedBox(),
     NotificationsPage(),
     AccountPage(),
   ];
@@ -53,9 +53,24 @@ class _BottomNavbarState extends State<BottomNavbar> {
         selectedItemColor: Colors.black,
         unselectedItemColor: const Color(0xFFB8B8B8),
         onTap: (int index) {
-          setState(() {
-            selectedIndex = index;
-          });
+          if (index == 2) {
+            showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return const FractionallySizedBox(
+                  heightFactor: 0.97,
+                  child: CreatePostPage(),
+                );
+              },
+              backgroundColor: Colors.white,
+              isScrollControlled: true,
+              useSafeArea: true,
+            );
+          } else {
+            setState(() {
+              selectedIndex = index;
+            });
+          }
         },
         elevation: 0,
         showSelectedLabels: false,
