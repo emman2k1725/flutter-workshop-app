@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_workshop_app/components/bottom_navbar.dart';
+import 'components/bottom_navbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Threads',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.transparent),
+          fontFamily: 'Roboto',
           useMaterial3: true,
         ),
         home: const BottomNavbar());
