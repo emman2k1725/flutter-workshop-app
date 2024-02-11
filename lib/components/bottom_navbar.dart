@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_workshop_app/screens/screens.dart';
+import 'package:flutter_workshop_app/screens.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({
@@ -27,24 +27,26 @@ class _BottomNavbarState extends State<BottomNavbar> {
       backgroundColor: Colors.white,
       body: SafeArea(child: screens[selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.add_circle_outline_rounded),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_outline_rounded),
+            icon: Icon(selectedIndex == 3
+                ? Icons.favorite_rounded
+                : Icons.favorite_outline_rounded),
             label: '',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_rounded),
             label: '',
           ),

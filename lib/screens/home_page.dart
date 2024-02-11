@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_workshop_app/components/components.dart';
+import 'package:flutter_workshop_app/components.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
