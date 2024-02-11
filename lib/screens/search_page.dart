@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_workshop_app/components/components.dart';
+import 'package:flutter_workshop_app/components.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});

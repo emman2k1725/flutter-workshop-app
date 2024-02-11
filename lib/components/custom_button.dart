@@ -6,22 +6,31 @@ enum CustomButtonType {
   secondary,
 }
 
+enum CustomPrimaryButtonType {
+  follow,
+  following,
+  requested,
+}
+
 class CustomButton extends StatelessWidget {
   final void Function()? onPressed;
   final String? text;
   final CustomButtonType type;
+  final CustomPrimaryButtonType primaryButtonType;
 
   const CustomButton({
     super.key,
     this.onPressed,
     this.text,
     this.type = CustomButtonType.primary,
+    this.primaryButtonType = CustomPrimaryButtonType.follow,
   });
 
   @override
   Widget build(BuildContext context) {
     ButtonStyle? buttonStyle;
     Color fontColor = Colors.black;
+    String textButton = 'Follow';
 
     switch (type) {
       case CustomButtonType.primary:
@@ -35,9 +44,21 @@ class CustomButton extends StatelessWidget {
               color: Colors.grey.shade400,
             ),
           ),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           splashFactory: NoSplash.splashFactory,
         );
+        switch (primaryButtonType) {
+          case CustomPrimaryButtonType.follow:
+            textButton = 'Follow';
+          case CustomPrimaryButtonType.following:
+            textButton = 'Following';
+            fontColor = Colors.grey.shade400;
+          case CustomPrimaryButtonType.requested:
+            textButton = 'Requested';
+            fontColor = Colors.grey.shade400;
+        }
+        break;
       case CustomButtonType.secondary:
         buttonStyle = ElevatedButton.styleFrom(
           elevation: 0,
@@ -50,6 +71,7 @@ class CustomButton extends StatelessWidget {
           splashFactory: NoSplash.splashFactory,
         );
         fontColor = Colors.white;
+        break;
     }
 
     return SizedBox(
@@ -58,7 +80,7 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed ?? () {},
         style: buttonStyle,
         child: Text(
-          text ?? 'Follow',
+          text ?? textButton,
           style: TextStyles.bodyText
               .copyWith(fontWeight: FontWeight.w500, color: fontColor),
         ),
