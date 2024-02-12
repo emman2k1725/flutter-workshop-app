@@ -4,6 +4,7 @@ export 'screens/notifications_page.dart';
 export 'screens/search_page.dart';
 export 'screens/account_page.dart';
 export 'screens/login_page.dart';
+export 'screens/sign_up_page.dart';
 
 // notifications
 export 'screens/notifications/notifications_all.dart';
