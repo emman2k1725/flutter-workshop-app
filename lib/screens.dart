@@ -3,6 +3,7 @@ export 'screens/create_post_page.dart';
 export 'screens/notifications_page.dart';
 export 'screens/search_page.dart';
 export 'screens/account_page.dart';
+export 'screens/login_page.dart';
 
 // notifications
 export 'screens/notifications/notifications_all.dart';
