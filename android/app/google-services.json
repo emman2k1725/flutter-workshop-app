@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "648058389156",
+    "project_id": "andale-flutter-workshop",
+    "storage_bucket": "andale-flutter-workshop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648058389156:android:1ef362be9e119ba8e15c31",
+        "android_client_info": {
+          "package_name": "com.example.flutter_workshop_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT_J9ZXhlyDDkJpLIg0reb0ZeugHPZqaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

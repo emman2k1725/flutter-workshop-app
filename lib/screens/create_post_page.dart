@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop_app/components.dart';
 import 'package:flutter_workshop_app/styles/textstyles.dart';
@@ -8,7 +9,7 @@ class CreatePostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController textEditingController = TextEditingController();
-
+    final thread = FirebaseFirestore.instance.collection('thread');
     return Container(
       color: Colors.white,
       child: Column(
@@ -62,9 +63,22 @@ class CreatePostPage extends StatelessWidget {
                           style:
                               TextStyles.bodyText.copyWith(color: Colors.grey),
                         ),
-                        const CustomButton(
+                        CustomButton(
                           text: 'Post',
                           type: CustomButtonType.secondary,
+                          onPressed: () async {
+                            await thread
+                                .doc()
+                                .set({
+                                  'userID': '',
+                                  'message': textEditingController.text,
+                                  'createdAt': DateTime.now().toString()
+                                })
+                                .then((_) =>
+                                    print('Successfully Posted on thread'))
+                                .catchError((error, stackTrace) =>
+                                    print(error.toString()));
+                          },
                         )
                       ],
                     ),
