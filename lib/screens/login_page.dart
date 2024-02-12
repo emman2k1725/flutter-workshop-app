@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_workshop_app/components.dart';
 import 'package:flutter_workshop_app/screens.dart';
 import 'package:flutter_workshop_app/styles.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -11,6 +13,8 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController usernameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+
+    final FirebaseAuth auth = FirebaseAuth.instance;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -42,13 +46,35 @@ class LoginPage extends StatelessWidget {
                 type: CustomButtonType.secondary,
                 text: 'Log in',
                 buttonColor: CustomColors.blue,
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const BottomNavbar(),
-                    ),
-                  );
+                onPressed: () async {
+                  try {
+                    await auth
+                        .signInWithEmailAndPassword(
+                            email: usernameController.text,
+                            password: passwordController.text)
+                        .then((value) {
+                      Fluttertoast.showToast(
+                          msg: 'Successfully logged in! ${value.user!.email}',
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.grey,
+                          textColor: Colors.white);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              const BottomNavbar(),
+                        ),
+                      );
+                    });
+                  } on FirebaseAuthException catch (error) {
+                    Fluttertoast.showToast(
+                        msg: error.message!,
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: Colors.grey,
+                        textColor: Colors.white);
+                  }
                 },
               ),
             ),

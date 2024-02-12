@@ -71,7 +71,7 @@ class CreatePostPage extends StatelessWidget {
                             await thread
                                 .doc()
                                 .set({
-                                  'fromUser': 'nkcardel',
+                                  'fromUser': 'User',
                                   'message': textEditingController.text,
                                   'createdAt': DateTime.now().toString()
                                 })
@@ -81,6 +81,7 @@ class CreatePostPage extends StatelessWidget {
                                     gravity: ToastGravity.BOTTOM,
                                     backgroundColor: Colors.grey,
                                     textColor: Colors.white))
+                                .then((value) => Navigator.pop(context))
                                 .catchError((error, stackTrace) =>
                                     Fluttertoast.showToast(
                                         msg:
