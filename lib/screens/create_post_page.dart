@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop_app/components.dart';
 import 'package:flutter_workshop_app/styles/textstyles.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CreatePostPage extends StatelessWidget {
   const CreatePostPage({super.key});
@@ -70,14 +71,24 @@ class CreatePostPage extends StatelessWidget {
                             await thread
                                 .doc()
                                 .set({
-                                  'userID': '',
+                                  'fromUser': 'nkcardel',
                                   'message': textEditingController.text,
                                   'createdAt': DateTime.now().toString()
                                 })
-                                .then((_) =>
-                                    print('Successfully Posted on thread'))
+                                .then((_) => Fluttertoast.showToast(
+                                    msg: 'Thread has been posted',
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.BOTTOM,
+                                    backgroundColor: Colors.grey,
+                                    textColor: Colors.white))
                                 .catchError((error, stackTrace) =>
-                                    print(error.toString()));
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            'Error occured. Please try again later',
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.BOTTOM,
+                                        backgroundColor: Colors.grey,
+                                        textColor: Colors.white));
                           },
                         )
                       ],
