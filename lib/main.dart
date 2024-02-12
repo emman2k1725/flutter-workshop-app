@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'components/bottom_navbar.dart';
+import 'package:flutter_workshop_app/screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +16,6 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Roboto',
           useMaterial3: true,
         ),
-        home: const BottomNavbar());
+        home: const LoginPage());
   }
 }

@@ -15,6 +15,7 @@ enum CustomPrimaryButtonType {
 class CustomButton extends StatelessWidget {
   final void Function()? onPressed;
   final String? text;
+  final Color? buttonColor;
   final CustomButtonType type;
   final CustomPrimaryButtonType primaryButtonType;
 
@@ -22,6 +23,7 @@ class CustomButton extends StatelessWidget {
     super.key,
     this.onPressed,
     this.text,
+    this.buttonColor,
     this.type = CustomButtonType.primary,
     this.primaryButtonType = CustomPrimaryButtonType.follow,
   });
@@ -63,7 +65,7 @@ class CustomButton extends StatelessWidget {
         buttonStyle = ElevatedButton.styleFrom(
           elevation: 0,
           foregroundColor: Colors.white,
-          backgroundColor: Colors.black,
+          backgroundColor: buttonColor ?? Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
@@ -77,7 +79,7 @@ class CustomButton extends StatelessWidget {
     return SizedBox(
       height: 33,
       child: ElevatedButton(
-        onPressed: onPressed ?? () {},
+        onPressed: onPressed,
         style: buttonStyle,
         child: Text(
           text ?? textButton,
