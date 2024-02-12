@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop_app/styles/textstyles.dart';
 
-class ThreadContainer extends StatelessWidget {
-  const ThreadContainer({super.key});
+class ThreadContainer extends StatefulWidget {
+  final Map<String, dynamic> threadData;
+  const ThreadContainer({
+    super.key,
+    required this.threadData,
+  });
 
+  @override
+  State<ThreadContainer> createState() => _ThreadContainerState();
+}
+
+class _ThreadContainerState extends State<ThreadContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,8 +36,8 @@ class ThreadContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
-                      'nkcardel',
+                    Text(
+                      widget.threadData['fromUser'],
                       style: TextStyles.titleText,
                     ),
                     Row(
@@ -48,8 +57,8 @@ class ThreadContainer extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipi scing elit. Praesent eget diam sed turpis ullamcorper bibendum. Nullam imperdiet dui arcu, ut tincidunt tellus gravida id. Donec vel justo condimentum quam congue',
+                Text(
+                  widget.threadData['message'],
                   style: TextStyles.bodyText,
                   overflow: TextOverflow.clip,
                 ),
