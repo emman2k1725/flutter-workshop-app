@@ -59,11 +59,10 @@ class LoginPage extends StatelessWidget {
                           gravity: ToastGravity.BOTTOM,
                           backgroundColor: Colors.grey,
                           textColor: Colors.white);
-                      Navigator.push(
-                        context,
+
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const BottomNavbar(),
+                          builder: (context) => const BottomNavbar(),
                         ),
                       );
                     });
@@ -79,7 +78,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 25),
-            InkWell(
+            GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,

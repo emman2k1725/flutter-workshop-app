@@ -74,7 +74,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
             suffixIcon: widget.controller.text.isNotEmpty &&
                     widget.controller.text != ''
-                ? InkWell(
+                ? GestureDetector(
                     onTap: () {
                       widget.controller.clear();
                     },
@@ -141,7 +141,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 filled: false,
                 suffixIcon: widget.controller.text.isNotEmpty &&
                         widget.controller.text != ''
-                    ? InkWell(
+                    ? GestureDetector(
                         onTap: () {
                           widget.controller.clear();
                         },
@@ -189,7 +189,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   filled: false,
                   suffixIcon: widget.controller.text.isNotEmpty &&
                           widget.controller.text != ''
-                      ? InkWell(
+                      ? GestureDetector(
                           onTap: () {
                             setState(() {
                               showPassword = !showPassword;

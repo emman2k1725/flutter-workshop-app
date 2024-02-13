@@ -53,12 +53,15 @@ class CustomButton extends StatelessWidget {
         switch (primaryButtonType) {
           case CustomPrimaryButtonType.follow:
             textButton = 'Follow';
+            break;
           case CustomPrimaryButtonType.following:
             textButton = 'Following';
             fontColor = Colors.grey.shade400;
+            break;
           case CustomPrimaryButtonType.requested:
             textButton = 'Requested';
             fontColor = Colors.grey.shade400;
+            break;
         }
         break;
       case CustomButtonType.secondary:
