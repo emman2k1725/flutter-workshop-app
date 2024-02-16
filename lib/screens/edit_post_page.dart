@@ -7,14 +7,15 @@ import 'package:flutter_workshop_app/styles/textstyles.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CreatePostPage extends StatefulWidget {
-  const CreatePostPage({super.key});
+class EditPostPage extends StatefulWidget {
+  final Map<String, dynamic>? threadData;
+  const EditPostPage({super.key, required this.threadData});
 
   @override
-  State<CreatePostPage> createState() => _CreatePostPageState();
+  State<EditPostPage> createState() => _EditPostPageState();
 }
 
-class _CreatePostPageState extends State<CreatePostPage> {
+class _EditPostPageState extends State<EditPostPage> {
   Map<String, dynamic>? user;
   @override
   void initState() {
@@ -31,7 +32,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController textEditingController = TextEditingController();
+    TextEditingController textEditingController =
+        TextEditingController(text: widget.threadData?['message']);
     final thread = FirebaseFirestore.instance.collection('thread');
     return Container(
       color: Colors.white,
@@ -40,7 +42,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           AppBar(
             backgroundColor: Colors.white,
             title: const Text(
-              'New thread',
+              'Edit thread',
               style: TextStyles.displayTextMedium,
             ),
             shape: const RoundedRectangleBorder(
@@ -74,7 +76,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
               children: [
                 CreatePostContainer(
                     controller: textEditingController,
-                    nickName: user?['nickName'] ?? 'Loading...'),
+                    nickName: user?['nickName'] ?? ''),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
@@ -89,18 +91,16 @@ class _CreatePostPageState extends State<CreatePostPage> {
                               TextStyles.bodyText.copyWith(color: Colors.grey),
                         ),
                         CustomButton(
-                          text: 'Post',
+                          text: 'Edit',
                           type: CustomButtonType.secondary,
                           onPressed: () async {
                             await thread
-                                .doc()
-                                .set({
-                                  'fromUser': user?['nickName'],
+                                .doc(widget.threadData?['id'])
+                                .update({
                                   'message': textEditingController.text,
-                                  'createdAt': DateTime.now().toString()
                                 })
                                 .then((_) => Fluttertoast.showToast(
-                                    msg: 'Thread has been posted',
+                                    msg: 'Thread has been editted',
                                     toastLength: Toast.LENGTH_LONG,
                                     gravity: ToastGravity.BOTTOM,
                                     backgroundColor: Colors.grey,
