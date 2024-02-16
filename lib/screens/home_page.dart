@@ -57,8 +57,10 @@ class _HomePageState extends State<HomePage> {
               }
 
               final List<Map<String, dynamic>> threads = snapshot.data!.docs
-                  .map((DocumentSnapshot document) =>
-                      document.data() as Map<String, dynamic>)
+                  .map((DocumentSnapshot document) => {
+                        'id': document.id,
+                        ...document.data() as Map<String, dynamic>,
+                      })
                   .toList();
 
               return SliverList(

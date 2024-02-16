@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,6 +8,7 @@ import 'package:flutter_workshop_app/components.dart';
 import 'package:flutter_workshop_app/screens.dart';
 import 'package:flutter_workshop_app/styles.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -15,7 +19,7 @@ class LoginPage extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
 
     final FirebaseAuth auth = FirebaseAuth.instance;
-
+    final thread = FirebaseFirestore.instance.collection('user');
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -53,18 +57,27 @@ class LoginPage extends StatelessWidget {
                             email: usernameController.text,
                             password: passwordController.text)
                         .then((value) {
-                      Fluttertoast.showToast(
-                          msg: 'Successfully logged in! ${value.user!.email}',
-                          toastLength: Toast.LENGTH_LONG,
-                          gravity: ToastGravity.BOTTOM,
-                          backgroundColor: Colors.grey,
-                          textColor: Colors.white);
-
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const BottomNavbar(),
-                        ),
-                      );
+                      thread.doc(value.user!.uid).get().then((value) async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        Map<String, dynamic> tempData = {
+                          'id': value.id,
+                          ...value.data()!
+                        };
+                        prefs.setString('user', json.encode(tempData));
+                        Fluttertoast.showToast(
+                            msg:
+                                'Successfully logged in! ${value.data()!['nickName']}',
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.grey,
+                            textColor: Colors.white);
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const BottomNavbar(),
+                          ),
+                        );
+                      });
                     });
                   } on FirebaseAuthException catch (error) {
                     Fluttertoast.showToast(

@@ -4,7 +4,9 @@ import 'package:flutter_workshop_app/styles/textstyles.dart';
 
 class CreatePostContainer extends StatefulWidget {
   final TextEditingController controller;
-  const CreatePostContainer({super.key, required this.controller});
+  final String nickName;
+  const CreatePostContainer(
+      {super.key, required this.controller, required this.nickName});
 
   @override
   State<CreatePostContainer> createState() => _CreatePostContainerState();
@@ -33,8 +35,8 @@ class _CreatePostContainerState extends State<CreatePostContainer> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'nkcardel',
+                    Text(
+                      widget.nickName,
                       style: TextStyles.titleText,
                     ),
                     widget.controller.text.isNotEmpty &&
