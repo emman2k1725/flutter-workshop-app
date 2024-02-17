@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop_app/components.dart';
-import 'package:flutter_workshop_app/screens/login_page.dart';
 import 'package:flutter_workshop_app/styles.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -9,7 +8,6 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController usernameController = TextEditingController();
-    TextEditingController nicknameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     TextEditingController confirmPasswordController = TextEditingController();
 
@@ -31,12 +29,6 @@ class SignUpPage extends StatelessWidget {
               controller: usernameController,
               type: CustomTextFieldType.login,
               labelText: 'Email',
-            ),
-            const SizedBox(height: 15),
-            CustomTextField(
-              controller: nicknameController,
-              type: CustomTextFieldType.login,
-              labelText: 'Nickname',
             ),
             const SizedBox(height: 15),
             CustomTextField(
