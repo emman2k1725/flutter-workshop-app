@@ -1,15 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop_app/screens/login_page.dart';
 import 'package:flutter_workshop_app/styles.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth auth = FirebaseAuth.instance;
     List<IconData> icons = [
       Icons.person_add_alt_1_outlined,
       Icons.notifications_outlined,
@@ -109,19 +106,7 @@ class SettingsPage extends StatelessWidget {
           const SizedBox(height: 25),
           GestureDetector(
             onTap: () {
-              auth.signOut().then((value) {
-                Fluttertoast.showToast(
-                    msg: 'Logged out',
-                    toastLength: Toast.LENGTH_LONG,
-                    gravity: ToastGravity.BOTTOM,
-                    backgroundColor: Colors.grey,
-                    textColor: Colors.white);
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const LoginPage(),
-                  ),
-                );
-              });
+              // Logout
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18.0),

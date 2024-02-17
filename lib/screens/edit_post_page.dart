@@ -1,40 +1,13 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop_app/components.dart';
 import 'package:flutter_workshop_app/styles/textstyles.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class EditPostPage extends StatefulWidget {
-  final Map<String, dynamic>? threadData;
-  const EditPostPage({super.key, required this.threadData});
-
-  @override
-  State<EditPostPage> createState() => _EditPostPageState();
-}
-
-class _EditPostPageState extends State<EditPostPage> {
-  Map<String, dynamic>? user;
-  @override
-  void initState() {
-    super.initState();
-    loadPrefs();
-  }
-
-  Future<void> loadPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      user = json.decode(prefs.getString('user')!);
-    });
-  }
+class EditPostPage extends StatelessWidget {
+  const EditPostPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController textEditingController =
-        TextEditingController(text: widget.threadData?['message']);
-    final thread = FirebaseFirestore.instance.collection('thread');
+    TextEditingController textEditingController = TextEditingController();
     return Container(
       color: Colors.white,
       child: Column(
@@ -75,8 +48,8 @@ class _EditPostPageState extends State<EditPostPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CreatePostContainer(
-                    controller: textEditingController,
-                    nickName: user?['nickName'] ?? ''),
+                  controller: textEditingController,
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
@@ -94,26 +67,7 @@ class _EditPostPageState extends State<EditPostPage> {
                           text: 'Edit',
                           type: CustomButtonType.secondary,
                           onPressed: () async {
-                            await thread
-                                .doc(widget.threadData?['id'])
-                                .update({
-                                  'message': textEditingController.text,
-                                })
-                                .then((_) => Fluttertoast.showToast(
-                                    msg: 'Thread has been editted',
-                                    toastLength: Toast.LENGTH_LONG,
-                                    gravity: ToastGravity.BOTTOM,
-                                    backgroundColor: Colors.grey,
-                                    textColor: Colors.white))
-                                .then((value) => Navigator.pop(context))
-                                .catchError((error, stackTrace) =>
-                                    Fluttertoast.showToast(
-                                        msg:
-                                            'Error occured. Please try again later',
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.BOTTOM,
-                                        backgroundColor: Colors.grey,
-                                        textColor: Colors.white));
+                            // Edit here
                           },
                         )
                       ],

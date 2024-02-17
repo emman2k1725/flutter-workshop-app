@@ -4,9 +4,7 @@ import 'package:flutter_workshop_app/styles/textstyles.dart';
 
 class CreatePostContainer extends StatefulWidget {
   final TextEditingController controller;
-  final String nickName;
-  const CreatePostContainer(
-      {super.key, required this.controller, required this.nickName});
+  const CreatePostContainer({super.key, required this.controller});
 
   @override
   State<CreatePostContainer> createState() => _CreatePostContainerState();
@@ -35,8 +33,8 @@ class _CreatePostContainerState extends State<CreatePostContainer> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.nickName,
+                    const Text(
+                      'User', // Change to your nickname
                       style: TextStyles.titleText,
                     ),
                     widget.controller.text.isNotEmpty &&

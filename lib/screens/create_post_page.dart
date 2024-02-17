@@ -1,38 +1,13 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop_app/components.dart';
 import 'package:flutter_workshop_app/styles/textstyles.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class CreatePostPage extends StatefulWidget {
+class CreatePostPage extends StatelessWidget {
   const CreatePostPage({super.key});
-
-  @override
-  State<CreatePostPage> createState() => _CreatePostPageState();
-}
-
-class _CreatePostPageState extends State<CreatePostPage> {
-  Map<String, dynamic>? user;
-  @override
-  void initState() {
-    super.initState();
-    loadPrefs();
-  }
-
-  Future<void> loadPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      user = json.decode(prefs.getString('user')!);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     TextEditingController textEditingController = TextEditingController();
-    final thread = FirebaseFirestore.instance.collection('thread');
     return Container(
       color: Colors.white,
       child: Column(
@@ -73,8 +48,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CreatePostContainer(
-                    controller: textEditingController,
-                    nickName: user?['nickName'] ?? 'Loading...'),
+                  controller: textEditingController,
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
@@ -92,28 +67,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                           text: 'Post',
                           type: CustomButtonType.secondary,
                           onPressed: () async {
-                            await thread
-                                .doc()
-                                .set({
-                                  'fromUser': user?['nickName'],
-                                  'message': textEditingController.text,
-                                  'createdAt': DateTime.now().toString()
-                                })
-                                .then((_) => Fluttertoast.showToast(
-                                    msg: 'Thread has been posted',
-                                    toastLength: Toast.LENGTH_LONG,
-                                    gravity: ToastGravity.BOTTOM,
-                                    backgroundColor: Colors.grey,
-                                    textColor: Colors.white))
-                                .then((value) => Navigator.pop(context))
-                                .catchError((error, stackTrace) =>
-                                    Fluttertoast.showToast(
-                                        msg:
-                                            'Error occured. Please try again later',
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.BOTTOM,
-                                        backgroundColor: Colors.grey,
-                                        textColor: Colors.white));
+                            // Created Thread
                           },
                         )
                       ],

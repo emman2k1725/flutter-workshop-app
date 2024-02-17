@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop_app/components.dart';
 import 'package:flutter_workshop_app/screens/login_page.dart';
 import 'package:flutter_workshop_app/styles.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -15,9 +12,6 @@ class SignUpPage extends StatelessWidget {
     TextEditingController nicknameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     TextEditingController confirmPasswordController = TextEditingController();
-
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final thread = FirebaseFirestore.instance.collection('user');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -65,37 +59,7 @@ class SignUpPage extends StatelessWidget {
                 text: 'Sign Up',
                 buttonColor: CustomColors.blue,
                 onPressed: () async {
-                  try {
-                    await auth
-                        .createUserWithEmailAndPassword(
-                            email: usernameController.text,
-                            password: passwordController.text)
-                        .then((value) => thread.doc(value.user!.uid).set({
-                              'nickName': nicknameController.text,
-                              'email': usernameController.text
-                            }).then((value) {
-                              Fluttertoast.showToast(
-                                  msg: 'Successfully signed up!',
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.BOTTOM,
-                                  backgroundColor: Colors.grey,
-                                  textColor: Colors.white);
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      const LoginPage(),
-                                ),
-                              );
-                            }));
-                  } on FirebaseAuthException catch (error) {
-                    Fluttertoast.showToast(
-                        msg: error.message!,
-                        toastLength: Toast.LENGTH_LONG,
-                        gravity: ToastGravity.BOTTOM,
-                        backgroundColor: Colors.grey,
-                        textColor: Colors.white);
-                  }
+                  // Sign up
                 },
               ),
             ),
